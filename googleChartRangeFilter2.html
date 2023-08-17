@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Google Charts Example</title>
-  <script src="https://www.gstatic.com/charts/loader.js"></script>
-  <script>
+<script>
     google.charts.load('current', { packages: ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
@@ -38,12 +33,21 @@
           var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
           // Draw the chart
-          chart.draw(data, {});
+          chart.draw(data, {
+            width: 1600, // Adjust the width as needed
+            height: 800, // Adjust the height as needed
+            chartArea: {
+              width: '80%',
+              height: '70%', // Adjust the chart area height
+              left: '10%', // Space for y-axis labels
+              top: '10%', // Space for title
+            },
+            hAxis: {
+              format: 'MM/dd/yyyy',
+              slantedText: false,
+              maxAlternation: 1
+            }
+          });
         });
     }
-  </script>
-</head>
-<body>
-  <div id="chart_div"></div>
-</body>
-</html>
+</script>
