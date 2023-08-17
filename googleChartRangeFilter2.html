@@ -8,7 +8,7 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-      fetch('https://drive.google.com/file/d/1clEZ8J6gqcCf_Dt7nQ2iw5sfFGElXk5f/view?usp=sharing')
+      fetch('https://ginoalexander11.github.io/Google-Chart-Git/MomData.csv')
         .then(response => response.text())
         .then(csvData => {
           var lines = csvData.split('\n');
