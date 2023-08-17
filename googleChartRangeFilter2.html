@@ -24,7 +24,7 @@
             var parts = lines[i].split(',');
             var dateParts = parts[0].split('/');
             var date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
-            
+
             var row = [date];
             for (var j = 1; j <= 10; j++) {
               row.push(parseFloat(parts[j]));
@@ -47,7 +47,13 @@
             }
           };
 
-          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+          var chart = new google.visualization.ChartWrapper({
+            chartType: 'LineChart',
+            containerId: 'chart_div',
+            options: options,
+            dataTable: data
+          });
+
           var control = new google.visualization.ControlWrapper({
             controlType: 'ChartRangeFilter',
             containerId: 'filter_div',
