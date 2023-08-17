@@ -22,14 +22,12 @@
 
           for (var i = 1; i < lines.length; i++) {
             var parts = lines[i].split(',');
-            var dateParts = parts[0].split('/'); // Split the date into parts
-            var date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]); // Create Date object (year, month, day)
+            var date = new Date(parts[0]);
 
             // Parse decile values and add them as row data
             var row = [date];
             for (var j = 1; j <= 10; j++) {
-              var decileValue = parseFloat(parts[j]);
-              row.push(isNaN(decileValue) ? null : decileValue); // Handle non-numeric values
+              row.push(parseFloat(parts[j]));
             }
 
             data.addRow(row);
@@ -38,7 +36,9 @@
           // Create the chart
           var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
-          // Draw the chart
+          // Set the view window to show the full date range
+          var startDate = new Date(lines[1].split(',')[0]); // First date in your data
+          var endDate = new Date(lines[lines.length - 1].split(',')[0]); // Last date in your data
           chart.draw(data, {
             width: 1600, // Adjust the width as needed
             height: 800, // Adjust the height as needed
@@ -48,7 +48,11 @@
             hAxis: {
               format: 'MM/dd/yyyy',
               slantedText: false,
-              maxAlternation: 2
+              maxAlternation: 1,
+              viewWindow: {
+                min: startDate,
+                max: endDate
+              }
             }
           });
         });
