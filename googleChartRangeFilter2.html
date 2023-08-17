@@ -22,7 +22,8 @@
 
           for (var i = 1; i < lines.length; i++) {
             var parts = lines[i].split(',');
-            var date = new Date(parts[0]);
+            var dateParts = parts[0].split('/'); // Split the date into parts
+            var date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]); // Create Date object (year, month, day)
 
             // Parse decile values and add them as row data
             var row = [date];
@@ -36,18 +37,18 @@
           // Create the chart
           var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
-         // Draw the chart
-chart.draw(data, {
-  width: 620,
-  chartArea: {
-    width: '80%'
-  },
-  hAxis: {
-    format: 'yyyy-MM', // Change the format to display year and month
-    slantedText: false,
-    maxAlternation: 1
-  }
-});
+          // Draw the chart
+          chart.draw(data, {
+            width: 620,
+            chartArea: {
+              width: '80%'
+            },
+            hAxis: {
+              format: 'MM/dd/yyyy',
+              slantedText: false,
+              maxAlternation: 1
+            }
+          });
         });
     }
   </script>
