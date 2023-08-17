@@ -36,18 +36,18 @@
           // Create the chart
           var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
-          // Draw the chart
-          chart.draw(data, {
-            width: 620,
-            chartArea: {
-              width: '80%'
-            },
-            hAxis: {
-              format: 'MM/dd/yyyy',
-              slantedText: false,
-              maxAlternation: 1
-            }
-          });
+         // Draw the chart
+chart.draw(data, {
+  width: 620,
+  chartArea: {
+    width: '80%'
+  },
+  hAxis: {
+    format: 'yyyy-MM', // Change the format to display year and month
+    slantedText: false,
+    maxAlternation: 1
+  }
+});
         });
     }
   </script>
