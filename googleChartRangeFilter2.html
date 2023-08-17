@@ -13,24 +13,20 @@
         .then(csvData => {
           var lines = csvData.split('\n');
           var data = new google.visualization.DataTable();
-          
-          // Process the header row to add columns
-          var headers = lines[0].split(',');
-          for (var i = 0; i < headers.length; i++) {
-            if (i === 0) {
-              data.addColumn('date', headers[i]);
-            } else {
-              data.addColumn('number', headers[i]);
-            }
+          data.addColumn('date', 'Date'); // Use 'Date' as the column label for X-axis
+
+          // Add columns for each decile
+          for (var i = 1; i <= 10; i++) {
+            data.addColumn('number', 'Decile ' + i);
           }
 
           for (var i = 1; i < lines.length; i++) {
             var parts = lines[i].split(',');
-            var dateParts = parts[0].split('/'); // Split the date into parts
-            var date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]); // Create Date object (year, month, day)
-            var row = [date];
+            var date = new Date(parts[0]);
 
-            for (var j = 1; j < parts.length; j++) {
+            // Parse decile values and add them as row data
+            var row = [date];
+            for (var j = 1; j <= 10; j++) {
               row.push(parseFloat(parts[j]));
             }
 
@@ -42,13 +38,12 @@
 
           // Draw the chart
           chart.draw(data, {
-            width: 1600, // Adjust the width as needed
-            height: 800, // Adjust the height as needed
+            width: 620,
             chartArea: {
-              width: '85%'
+              width: '80%'
             },
             hAxis: {
-              format: 'MM/dd/yyyy',
+              format: 'MMM',
               slantedText: false,
               maxAlternation: 1
             }
