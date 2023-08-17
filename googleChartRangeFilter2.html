@@ -14,21 +14,29 @@
           var lines = csvData.split('\n');
           var data = new google.visualization.DataTable();
           data.addColumn('date', 'Date');
-          data.addColumn('number', 'Decile 1');
+
+          // Dynamically add columns for each decile
+          for (var i = 1; i <= 10; i++) {
+            data.addColumn('number', 'Decile ' + i);
+          }
 
           for (var i = 1; i < lines.length; i++) {
             var parts = lines[i].split(',');
             var dateParts = parts[0].split('/');
             var date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]);
-            var value = parseFloat(parts[1]);
+            
+            var row = [date];
+            for (var j = 1; j <= 10; j++) {
+              row.push(parseFloat(parts[j]));
+            }
 
-            data.addRow([date, value]);
+            data.addRow(row);
           }
 
           var options = {
             width: 800,
             height: 400,
-            title: 'Decile 1 Performance Over Time',
+            title: 'Decile Performance Over Time',
             hAxis: {
               format: 'MM/dd/yyyy',
               slantedText: false,
