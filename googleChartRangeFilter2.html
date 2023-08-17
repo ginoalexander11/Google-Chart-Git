@@ -48,27 +48,16 @@
           };
 
           var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-          var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
-
-          var dateRangeFilter = new google.visualization.ControlWrapper({
+          var control = new google.visualization.ControlWrapper({
             controlType: 'ChartRangeFilter',
             containerId: 'filter_div',
             options: {
-              filterColumnLabel: 'Date',
-              ui: {
-                chartType: 'LineChart',
-                chartOptions: {
-                  hAxis: {
-                    format: 'MM/dd/yyyy',
-                    slantedText: false,
-                    maxAlternation: 1
-                  }
-                }
-              }
+              filterColumnLabel: 'Date'
             }
           });
 
-          dashboard.bind(dateRangeFilter, chart);
+          var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
+          dashboard.bind(control, chart);
           dashboard.draw(data);
 
         });
