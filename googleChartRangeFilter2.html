@@ -28,7 +28,8 @@
             // Parse decile values and add them as row data
             var row = [date];
             for (var j = 1; j <= 10; j++) {
-              row.push(parseFloat(parts[j]));
+              var decileValue = parseFloat(parts[j]);
+              row.push(isNaN(decileValue) ? null : decileValue); // Handle non-numeric values
             }
 
             data.addRow(row);
