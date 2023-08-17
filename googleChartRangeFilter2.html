@@ -4,7 +4,7 @@
   <title>Google Charts Example</title>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
-    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.load('current', { packages: ['corechart', 'controls'] });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
@@ -48,12 +48,37 @@
           };
 
           var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-          chart.draw(data, options);
+          var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
+
+          var dateRangeFilter = new google.visualization.ControlWrapper({
+            controlType: 'ChartRangeFilter',
+            containerId: 'filter_div',
+            options: {
+              filterColumnLabel: 'Date',
+              ui: {
+                chartType: 'LineChart',
+                chartOptions: {
+                  hAxis: {
+                    format: 'MM/dd/yyyy',
+                    slantedText: false,
+                    maxAlternation: 1
+                  }
+                }
+              }
+            }
+          });
+
+          dashboard.bind(dateRangeFilter, chart);
+          dashboard.draw(data);
+
         });
     }
   </script>
 </head>
 <body>
-  <div id="chart_div"></div>
+  <div id="dashboard">
+    <div id="chart_div"></div>
+    <div id="filter_div"></div>
+  </div>
 </body>
 </html>
