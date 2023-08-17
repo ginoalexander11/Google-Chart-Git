@@ -22,7 +22,8 @@
 
           for (var i = 1; i < lines.length; i++) {
             var parts = lines[i].split(',');
-            var date = new Date(parts[0]);
+            var dateParts = parts[0].split('/'); // Split the date into parts
+            var date = new Date(dateParts[2], dateParts[0] - 1, dateParts[1]); // Create Date object (year, month, day)
 
             // Parse decile values and add them as row data
             var row = [date];
