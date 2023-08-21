@@ -7,27 +7,6 @@
     google.charts.load('current', { packages: ['corechart', 'controls'] });
     google.charts.setOnLoadCallback(drawChart);
 
-    function normalizeData(dataTable) {
-      // Find the maximum value across all deciles and rows
-      var max = 0;
-      for (var i = 0; i < dataTable.getNumberOfRows(); i++) {
-        for (var j = 1; j <= 10; j++) {
-          var value = dataTable.getValue(i, j);
-          if (value > max) {
-            max = value;
-          }
-        }
-      }
-
-      // Normalize the data
-      for (var i = 0; i < dataTable.getNumberOfRows(); i++) {
-        for (var j = 1; j <= 10; j++) {
-          var value = dataTable.getValue(i, j);
-          dataTable.setValue(i, j, value / max);
-        }
-      }
-    }
-
     function drawChart() {
       fetch('MomDataUpdateArithmetic.csv')
         .then(response => response.text())
@@ -54,21 +33,18 @@
             data.addRow(row);
           }
 
-          normalizeData(data); // Normalize the data before drawing
-
           var options = {
             width: 1000,
             height: 600,
-            title: 'Winners to Losers Portfolios 1927-2023',
+            title: 'Winners to Losers Portfolios 1927-2023', // Updated title
             hAxis: {
               format: 'MM/dd/yyyy',
               slantedText: false,
               maxAlternation: 1
             },
             vAxis: {
-              title: 'Normalized Value', // Adjust the axis label
-              minValue: 0, // Set min value to 0
-              maxValue: 1 // Set max value to 1
+              title: 'Value',
+              viewWindowMode: 'pretty',
             },
             chartArea: {
               width: '70%',
