@@ -8,7 +8,7 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-      fetch('https://ginoalexander11.github.io/Google-Chart-Git/MomData%20-%20MomData.csv')
+      fetch('MomDataUpdateArithmetic.csv')
         .then(response => response.text())
         .then(csvData => {
           var lines = csvData.split('\n');
@@ -34,8 +34,8 @@
           }
 
           var options = {
-            width: 800,
-            height: 400,
+            width: 1000, // Increase the width
+            height: 600, // Increase the height
             title: 'Decile Performance Over Time',
             hAxis: {
               format: 'MM/dd/yyyy',
@@ -43,27 +43,14 @@
               maxAlternation: 1
             },
             vAxis: {
-              title: 'Value'
+              title: 'Value',
+              viewWindowMode: 'pretty', // Adjust scaling of vertical axis
+            },
+            chartArea: {
+              width: '70%', // Adjust chart area width
+              height: '70%', // Adjust chart area height
             }
           };
-
-          var control = new google.visualization.ControlWrapper({
-            controlType: 'ChartRangeFilter',
-            containerId: 'filter_div',
-            options: {
-              filterColumnLabel: 'Date',
-              ui: {
-                chartOptions: {
-                  hAxis: {
-                    format: 'MM/dd/yyyy'
-                  }
-                }
-              },
-              filterColumnIndex: 0, // Index of the Date column
-              minRangeSize: 24 * 60 * 60 * 1000 * 30, // Minimum range size in milliseconds (30 days)
-              range: { start: new Date(1927, 0, 1), end: new Date(1991, 11, 31) } // Initial date range
-            }
-          });
 
           var chart = new google.visualization.ChartWrapper({
             chartType: 'LineChart',
@@ -72,10 +59,17 @@
             dataTable: data
           });
 
+          var control = new google.visualization.ControlWrapper({
+            controlType: 'ChartRangeFilter',
+            containerId: 'filter_div',
+            options: {
+              filterColumnLabel: 'Date'
+            }
+          });
+
           var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
           dashboard.bind(control, chart);
           dashboard.draw(data);
-
         });
     }
   </script>
