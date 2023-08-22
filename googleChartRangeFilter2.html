@@ -7,17 +7,16 @@
     google.charts.load('current', { packages: ['corechart', 'controls'] });
     google.charts.setOnLoadCallback(drawChart);
 
-    function normalizeData(rawData) {
-      var normalizedData = [];
+    function logScaleData(rawData) {
+      var scaledData = [];
       for (var i = 0; i < rawData.length; i++) {
         var decileValues = rawData[i].slice(1); // Remove the date from the array
-        var minValue = Math.min(...decileValues);
-        var maxValue = Math.max(...decileValues);
 
-        var normalizedDecile = decileValues.map(value => (value - minValue) / (maxValue - minValue));
-        normalizedData.push([rawData[i][0], ...normalizedDecile]);
+        // Apply logarithmic scaling
+        var scaledDecile = decileValues.map(value => Math.log(value + 1)); // Adding 1 to avoid log(0)
+        scaledData.push([rawData[i][0], ...scaledDecile]);
       }
-      return normalizedData;
+      return scaledData;
     }
 
     function drawChart() {
@@ -46,7 +45,7 @@
             data.addRow(row);
           }
 
-          var normalizedData = normalizeData(data); // Normalize the data
+          var scaledData = logScaleData(data); // Apply log scaling
 
           var options = {
             width: 1000,
@@ -58,7 +57,7 @@
               maxAlternation: 1
             },
             vAxis: {
-              title: 'Normalized Value',
+              title: 'Log Scaled Value',
             },
             chartArea: {
               width: '70%',
@@ -70,7 +69,7 @@
             chartType: 'LineChart',
             containerId: 'chart_div',
             options: options,
-            dataTable: normalizedData
+            dataTable: scaledData
           });
 
           var control = new google.visualization.ControlWrapper({
