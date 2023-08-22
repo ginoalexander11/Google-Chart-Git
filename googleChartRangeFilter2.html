@@ -29,9 +29,9 @@
             for (var j = 1; j <= 10; j++) {
               var value = parseFloat(parts[j]);
 
-              // Scale Deciles 8, 9, and 10 by dividing by 10
-              if (j >= 8 && j <= 10) {
-                value /= 10;
+              // Divide Decile 10 by 25
+              if (j === 10) {
+                value /= 25;
               }
 
               row.push(value);
