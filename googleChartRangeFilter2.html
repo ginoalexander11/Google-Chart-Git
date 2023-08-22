@@ -29,9 +29,9 @@
             for (var j = 1; j <= 10; j++) {
               var value = parseFloat(parts[j]);
 
-              // Apply custom scaling to the bottom 7 deciles
-              if (j >= 1 && j <= 7) {
-                value *= 10; // Scale up by a factor of 10
+              // Scale Deciles 8, 9, and 10 by dividing by 10
+              if (j >= 8 && j <= 10) {
+                value /= 10;
               }
 
               row.push(value);
