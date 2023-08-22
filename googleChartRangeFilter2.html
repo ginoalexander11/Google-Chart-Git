@@ -27,14 +27,7 @@
 
             var row = [date];
             for (var j = 1; j <= 10; j++) {
-              var value = parseFloat(parts[j]);
-
-              // Multiply deciles 1-9 by 10
-              if (j <= 9) {
-                value *= 10;
-              }
-
-              row.push(value);
+              row.push(parseFloat(parts[j]));
             }
 
             data.addRow(row);
