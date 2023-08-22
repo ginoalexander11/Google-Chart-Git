@@ -36,7 +36,7 @@
           var options = {
             width: 1000,
             height: 600,
-            title: 'Winners to Losers Portfolios 1927-2023', // Updated title
+            title: 'Winners to Losers Portfolios 1927-2023',
             hAxis: {
               format: 'MM/dd/yyyy',
               slantedText: false,
@@ -44,6 +44,8 @@
             },
             vAxis: {
               title: 'Value',
+              minValue: 0, // Set a fixed minimum value for the y-axis
+              maxValue: 3, // Set a fixed maximum value for the y-axis
               viewWindowMode: 'pretty',
             },
             chartArea: {
