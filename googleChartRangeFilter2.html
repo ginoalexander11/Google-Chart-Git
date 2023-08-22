@@ -44,9 +44,11 @@
             },
             vAxis: {
               title: 'Value',
-              minValue: 0, // Set a fixed minimum value for the y-axis
-              maxValue: .3, // Set a fixed maximum value for the y-axis
               viewWindowMode: 'pretty',
+              viewWindow: {
+                min: -2, // Set a lower bound for the y-axis
+                max: 4   // Set an upper bound for the y-axis
+              }
             },
             chartArea: {
               width: '70%',
