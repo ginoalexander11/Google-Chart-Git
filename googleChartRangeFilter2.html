@@ -29,8 +29,10 @@
             for (var j = 1; j <= 10; j++) {
               var value = parseFloat(parts[j]);
 
-              // Divide every decile by 25
-              value /= 25;
+              // Multiply deciles 1-9 by 10
+              if (j <= 9) {
+                value *= 10;
+              }
 
               row.push(value);
             }
