@@ -4,8 +4,10 @@
   <title>Google Charts Example</title>
   <script src="https://www.gstatic.com/charts/loader.js"></script>
   <script>
-    google.charts.load('current', { packages: ['corechart', 'controls'] });
+    google.charts.load('current', { packages: ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
+
+    var chart;
 
     function drawChart() {
       fetch('MomDataUpdateArithmetic.csv')
@@ -52,32 +54,23 @@
             }
           };
 
-          var chart = new google.visualization.ChartWrapper({
-            chartType: 'LineChart',
-            containerId: 'chart_div',
-            options: options,
-            dataTable: data
-          });
-
-          var control = new google.visualization.ControlWrapper({
-            controlType: 'ChartRangeFilter',
-            containerId: 'filter_div',
-            options: {
-              filterColumnLabel: 'Date'
-            }
-          });
-
-          var dashboard = new google.visualization.Dashboard(document.getElementById('dashboard'));
-          dashboard.bind(control, chart);
-          dashboard.draw(data);
+          chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
         });
+    }
+
+    function updateYAxisScale(scaleValue) {
+      var yAxisOptions = chart.getOption('vAxis');
+      yAxisOptions.viewWindow = { min: -scaleValue, max: scaleValue };
+      chart.draw(chart.getDataTable(), { vAxis: yAxisOptions });
     }
   </script>
 </head>
 <body>
-  <div id="dashboard">
-    <div id="chart_div"></div>
-    <div id="filter_div"></div>
+  <div id="chart_div"></div>
+  <div>
+    <label for="yAxisScale">Y-Axis Scale:</label>
+    <input type="range" id="yAxisScale" min="1" max="100" value="20" onchange="updateYAxisScale(this.value)">
   </div>
 </body>
 </html>
