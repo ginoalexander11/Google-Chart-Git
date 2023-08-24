@@ -8,7 +8,7 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-      fetch('MomRawData(3).csv')
+      fetch('MomRawData(6).csv')
         .then(response => response.text())
         .then(csvData => {
           var lines = csvData.split('\n');
@@ -36,7 +36,7 @@
           var options = {
             width: 1400,
             height: 600,
-            title: 'Winners to Losers Portfolios 1927-2023', // Updated title
+            title: 'Momentum Portfolio 1927-2023', // Updated title
             hAxis: {
               format: 'MM/dd/yyyy',
               slantedText: false,
